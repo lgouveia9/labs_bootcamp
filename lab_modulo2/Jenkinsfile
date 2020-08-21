@@ -1,0 +1,21 @@
+node {
+    def mvnHome
+    stage('Step 1 - Preparation') { // for display purposes
+        // Get some code from a GitHub repository
+        git 'https://github.com/luancarlos021/lab_bootcamp.git'
+    }
+    
+    stage('Step 2 - Docker Build') { // for display purposes
+        // Get some code from a GitHub repository
+        sh "sudo docker build -t myapp ."
+    }
+    
+    stage('Step 3 - Parando a aplicação') { // for display purposes
+        // Get some code from a GitHub repository
+        sh label: '', script: 'sudo docker run hello-world;sudo docker stop $(sudo docker ps -a -q); sudo docker container prune -f'
+    }
+    
+    stage('Step 4 - Realizando o Deploy'){
+        sh "sudo docker run --name meusite -p 8082:80 -d myapp"
+    }   
+}
