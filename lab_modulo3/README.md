@@ -5,14 +5,12 @@
 
 ###### Para os procedimentos abaixo, o terraform já tem que está instalado.
 
-Iniciando o terraform:
+`./terraform init` - Baixa os plugins necessários para executar o código.
 
-`./terraform init`
 
-Verificar as ações que serão feitas pelo terraform:
+`./terraform plan` - Mostra o que o Terraform irá realizar.
 
-`./terraform plan`
 
-Aplicar o script:
+`./terraform apply` - Executa tudo que foi definido no arquivo de configuração.
 
-`./terraform apply`
+`./terraform destroy` - Vai destruir tudo que foi criado no provider pelo arquivo de configuração.
