@@ -1,0 +1,6 @@
+.terraform/
+*.csv
+*.backup
+*.zip
+*.tfstate
+*.info
