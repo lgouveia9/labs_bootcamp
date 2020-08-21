@@ -13,7 +13,7 @@ resource "aws_instance" "telemetria" {
     tags = {
         Name = "telemetria${count.index}"
     }
-    vpc_security_group_ids = ["sg-0b54b7f87b6b8359e","sg-03167596960ca4cbf"]
+    # vpc_security_group_ids = ["sg-0b54b7f87b6b8359e","sg-03167596960ca4cbf"]
 }
 
 # Liberando porta 22
