@@ -4,18 +4,7 @@ provider "aws" {
   region  = "us-east-2"
 }
 
-# configurando as instancias
-resource "aws_instance" "telemetria" {
-    count = 3
-    ami = "ami-07fb7bd53bacdfc16"
-    instance_type = "t2.micro"
-    key_name = "bootcamp_devops"
-    tags = {
-        Name = "telemetria${count.index}"
-    }
-    # vpc_security_group_ids = ["sg-0b54b7f87b6b8359e","sg-03167596960ca4cbf"]
-}
-
+## Criando os securitys groups ##
 # Liberando porta 22
 resource "aws_security_group" "acesso_ssh" {
   name        = "acesso_ssh"
@@ -36,7 +25,7 @@ resource "aws_security_group" "acesso_ssh" {
 # Liberando porta 8080
 resource "aws_security_group" "acesso_http" {
   name        = "acesso_http"
-  description = "Liberando acessos aos servidores via SSH"
+  description = "Liberando acessos web via http"
 
   ingress {
 
@@ -49,4 +38,17 @@ resource "aws_security_group" "acesso_http" {
   tags = {
     Name = "Acesso Http"
   }
+}
+
+# Configurando as instâncias
+resource "aws_instance" "telemetria" {
+    count = 3
+    ami = "ami-07fb7bd53bacdfc16"
+    instance_type = "t2.micro"
+    key_name = "bootcamp_devops"
+    tags = {
+        Name = "telemetria${count.index}"
+    }
+    vpc_security_group_ids = ["${aws_security_group.acesso_ssh.id}", "${aws_security_group.acesso_http.id}", "sg-304fc64d"]
+
 }
