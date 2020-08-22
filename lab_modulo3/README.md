@@ -14,3 +14,16 @@
 `./terraform apply` - Executa tudo que foi definido no arquivo de configuração.
 
 `./terraform destroy` - Vai destruir tudo que foi criado no provider pelo arquivo de configuração.
+
+---
+
+## Instalação do wordpress e o mysql
+#### Na instância **telemetria0**
+```docker
+docker run --name meubanco -e MYSQL_ROOT_PASSWORD=SENHA -p 3306:3306 -d mysql:latest
+```
+#### Na instância **telemetria1**
+##### Lembre-se de substituir IP-DB pelo IP da instância onde está rodando o banco de dados.
+```docker
+$ docker run --name mywordpress -p 8080:80 -e WORDPRESS_DB_HOST=IP-DB:3306 -e WORDPRESS_DB_PASSWORD=SENHA -e WORDPRESS_DB_NAME=dbwordpress -e WORDPRESS_TABLE_PREFIX=wpblog -d wordpress:latest
+```
