@@ -28,7 +28,6 @@ resource "aws_security_group" "acesso_http" {
   description = "Liberando acessos web via http"
 
   ingress {
-
     from_port   = 8080
     to_port     = 8080
     protocol    = "tcp"
