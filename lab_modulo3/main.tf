@@ -53,5 +53,26 @@ resource "aws_instance" "telemetria" {
   provisioner "file" {
     source      = "docker-install.sh"
     destination = "/tmp/docker-install.sh"
+
+    connection {
+      type = "ssh"
+      user = "ubuntu"
+      private_key = file("O caminho do seu Key pairs da aws")
+      host = self.public_ip
+    }
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "chmod +x /tmp/docker-install.sh",
+      "/tmp/docker-install.sh",
+    ]
+    
+    connection {
+      type = "ssh"
+      user = "ubuntu"
+      private_key = file("O caminho do seu Key pairs da aws")
+      host = self.public_ip
+    }
   }
 }
