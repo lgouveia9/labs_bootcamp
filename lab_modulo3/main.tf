@@ -41,13 +41,17 @@ resource "aws_security_group" "acesso_http" {
 
 # Configurando as instâncias
 resource "aws_instance" "telemetria" {
-    count = 3
-    ami = "ami-07fb7bd53bacdfc16"
-    instance_type = "t2.micro"
-    key_name = "bootcamp_devops"
-    tags = {
-        Name = "telemetria${count.index}"
-    }
-    vpc_security_group_ids = ["${aws_security_group.acesso_ssh.id}", "${aws_security_group.acesso_http.id}", "sg-304fc64d"]
-
+  count = 3
+  ami = "ami-07fb7bd53bacdfc16"
+  instance_type = "t2.micro"
+  key_name = "bootcamp_devops"
+  tags = {
+    Name = "telemetria${count.index}"
+  }
+  vpc_security_group_ids = ["${aws_security_group.acesso_ssh.id}", "${aws_security_group.acesso_http.id}", "sg-304fc64d"]
+  
+  provisioner "file" {
+    source      = "docker-install.sh"
+    destination = "/tmp/docker-install.sh"
+  }
 }
