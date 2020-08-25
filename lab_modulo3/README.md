@@ -20,10 +20,16 @@
 ## Instalação do wordpress e o mysql
 #### Na instância **telemetria0**
 ```docker
-docker run --name meubanco -e MYSQL_ROOT_PASSWORD=SENHA -p 3306:3306 -d mysql:latest
+$ docker run --name meubanco -e MYSQL_ROOT_PASSWORD=SENHA -p 3306:3306 -d mysql:latest
 ```
 #### Na instância **telemetria1**
-##### Lembre-se de substituir IP-DB pelo IP da instância onde está rodando o banco de dados.
+##### Lembre-se de substituir IP-DB pelo IP privado da instância onde está rodando o banco de dados.
 ```docker
 $ docker run --name mywordpress -p 8080:80 -e WORDPRESS_DB_HOST=IP-DB:3306 -e WORDPRESS_DB_PASSWORD=SENHA -e WORDPRESS_DB_NAME=dbwordpress -e WORDPRESS_TABLE_PREFIX=wpblog -d wordpress:latest
 ```
+## Configurando o Dynatrace
+- Criar uma conta de avaliação gratuita no [Dynatrace](https://www.dynatrace.com/)
+- Logar no sistema e ir até a parte **Manage/Deploy Dynatrace**, localizado no canto inferior esquerdo.
+- Clicar em **Start installation** para poder instalar o *Dynatrace OneAgent*
+- Após isso, é só seguir o passo a passo de instalação em cada uma das instancias, lembrando de usar o **SUDO**
+- Após alguns instantes já será possível verificar os servidores em **Monitor/Hosts** e explorar ao máximo essa aplicação.
